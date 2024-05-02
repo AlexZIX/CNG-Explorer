@@ -45,9 +45,12 @@ const
   NCRYPT_PAD_OAEP_FLAG = $00000004;
   NCRYPT_PAD_PSS_FLAG = $00000008;
 
+  AT_KEYEXCHANGE = $00000001;
+  AT_SIGNATURE = $00000002;
+
   function NCryptOpenStorageProvider(phProvider: Pointer; pszProviderName: PWideChar;
     dwFlags: Dword): UInt32; stdcall; external NCryptDll;
-  function NCryptCreatePersistedKey(hProvider: Pointer; phKey: Pointer;
+  function NCryptCreatePersistedKey(hProvider: THandle; phKey: Pointer;
     pszAlgId: PWideChar; pszKeyName: PWideChar; dwLegacyKeySpec: DWord;
     dwFlags: DWord): UInt32; stdcall; external NCryptDll;
   function NCryptOpenKey(hProvider: Pointer; phKey: Pointer; pszKeyName: PWideChar;
@@ -74,6 +77,8 @@ begin
      NTE_INVALID_PARAMETER: Result := 'One or more parameters are not valid';
      NTE_NO_MEMORY: Result := 'A memory allocation failure occurred';
      NTE_INVALID_HANDLE: Result := 'The handle in the hObject parameter is not valid';
+     NTE_EXISTS: Result := 'A key with the specified name already exists and the NCRYPT_OVERWRITE_KEY_FLAG was not specified.';
+     //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;
 

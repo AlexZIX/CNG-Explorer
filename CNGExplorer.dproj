@@ -132,14 +132,12 @@
             <Form>frmMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Forms\uNCryptCreatePersistedKey.pas">
-            <Form>frmNCryptCreatePersistedKey</Form>
-        </DCCReference>
         <DCCReference Include="Forms\uNCryptEncryptDecrypt.pas"/>
         <DCCReference Include="Common\NCryptCNG.pas"/>
         <DCCReference Include="Common\NTStatusConsts.pas"/>
         <DCCReference Include="Forms\uNCryptOpenStorageProvider.pas"/>
         <DCCReference Include="Forms\uNCryptFreeObject.pas"/>
+        <DCCReference Include="Forms\uNCryptCreatePersistedKey.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -47,7 +47,6 @@ object frmMain: TfrmMain
       000000000000000000011B4E004300720079007000740045006E006300720079
       00700074002F004E004300720079007000740044006500630072007900700074
       00}
-    ExplicitHeight = 582
   end
   object pnlFrames: TPanel
     AlignWithMargins = True
@@ -57,7 +56,6 @@ object frmMain: TfrmMain
     Height = 619
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitHeight = 751
   end
   object lbPointers: TListBox
     Left = 3
@@ -67,6 +65,5 @@ object frmMain: TfrmMain
     Anchors = [akLeft, akBottom]
     ItemHeight = 15
     TabOrder = 2
-    ExplicitTop = 591
   end
 end

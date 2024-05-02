@@ -63,7 +63,7 @@ object frmNCryptFreeObject: TfrmNCryptFreeObject
   end
   object Panel1: TPanel
     Left = 0
-    Top = 218
+    Top = 98
     Width = 967
     Height = 4
     Anchors = [akLeft, akTop, akRight]
@@ -72,7 +72,7 @@ object frmNCryptFreeObject: TfrmNCryptFreeObject
   end
   object leResult: TLabeledEdit
     Left = 96
-    Top = 234
+    Top = 114
     Width = 121
     Height = 23
     EditLabel.Width = 32
@@ -84,7 +84,7 @@ object frmNCryptFreeObject: TfrmNCryptFreeObject
   end
   object edtResultMessage: TEdit
     Left = 232
-    Top = 234
+    Top = 114
     Width = 713
     Height = 23
     Anchors = [akLeft, akTop, akRight]
