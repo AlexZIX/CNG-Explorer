@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
   Vcl.ExtCtrls, System.IOUtils, System.IniFiles, uNCryptCreatePersistedKey,
-  uNCryptOpenStorageProvider, NCryptCNG, uNCryptFreeObject, uNCryptFinalizeKey;
+  uNCryptOpenStorageProvider, NCryptCNG, uNCryptFreeObject, uNCryptFinalizeKey,
+  uNCryptDeleteKey;
 
 type
   TfrmMain = class(TForm)
@@ -95,6 +96,7 @@ begin
       2: SelectedFrame := TfrmNCryptFinalizeKey.GetFrame;
       4: SelectedFrame := TfrmNCryptOpenStorageProvider.GetFrame(OnChangePointers);
       5: SelectedFrame := TfrmNCryptFreeObject.GetFrame(OnChangePointers);
+      6: SelectedFrame := TfrmNCryptDeleteKey.GetFrame;
     end;
 
     SelectedFrameIndex := Node.SelectedIndex;
