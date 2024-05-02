@@ -10,7 +10,7 @@ object frmMain: TfrmMain
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poScreenCenter
+  Position = poDesigned
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
