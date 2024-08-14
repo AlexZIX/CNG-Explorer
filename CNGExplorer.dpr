@@ -10,7 +10,10 @@ uses
   NTStatusConsts in 'Common\NTStatusConsts.pas',
   uNCryptOpenStorageProvider in 'Forms\uNCryptOpenStorageProvider.pas',
   uNCryptFreeObject in 'Forms\uNCryptFreeObject.pas',
-  uNCryptCreatePersistedKey in 'Forms\uNCryptCreatePersistedKey.pas';
+  uNCryptCreatePersistedKey in 'Forms\uNCryptCreatePersistedKey.pas',
+  uNCryptFinalizeKey in 'Forms\uNCryptFinalizeKey.pas',
+  uNCryptDeleteKey in 'Forms\uNCryptDeleteKey.pas',
+  uNCryptOpenKey in 'Forms\uNCryptOpenKey.pas';
 
 {$R *.res}
 

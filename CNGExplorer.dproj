@@ -138,6 +138,9 @@
         <DCCReference Include="Forms\uNCryptOpenStorageProvider.pas"/>
         <DCCReference Include="Forms\uNCryptFreeObject.pas"/>
         <DCCReference Include="Forms\uNCryptCreatePersistedKey.pas"/>
+        <DCCReference Include="Forms\uNCryptFinalizeKey.pas"/>
+        <DCCReference Include="Forms\uNCryptDeleteKey.pas"/>
+        <DCCReference Include="Forms\uNCryptOpenKey.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
