@@ -36,9 +36,14 @@ procedure TfrmNCryptFreeObject.btnExecuteClick(Sender: TObject);
 var ErrRet: UInt32;
 begin
   if cbHandle.ItemIndex = 0 then
-    ErrRet := NCryptFreeObject(TNCryptCNG.hProvider)
-  else
+  begin
+    ErrRet := NCryptFreeObject(TNCryptCNG.hProvider);
+    TNCryptCNG.hProvider := 0;
+  end else
+  begin
     ErrRet := NCryptFreeObject(TNCryptCNG.hKey);
+    TNCryptCNG.hKey := 0;
+  end;
 
   leResult.Text := '0x' + IntToHex(ErrRet);
   edtResultMessage.Text := TNCryptCNG.GetErrorDescription(ErrRet);

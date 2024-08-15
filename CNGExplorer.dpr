@@ -13,7 +13,8 @@ uses
   uNCryptCreatePersistedKey in 'Forms\uNCryptCreatePersistedKey.pas',
   uNCryptFinalizeKey in 'Forms\uNCryptFinalizeKey.pas',
   uNCryptDeleteKey in 'Forms\uNCryptDeleteKey.pas',
-  uNCryptOpenKey in 'Forms\uNCryptOpenKey.pas';
+  uNCryptOpenKey in 'Forms\uNCryptOpenKey.pas',
+  uNCryptEnumKeys in 'Forms\uNCryptEnumKeys.pas';
 
 {$R *.res}
 

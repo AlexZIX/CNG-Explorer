@@ -10,10 +10,18 @@ uses Winapi.Windows, NTStatusConsts;
 
 type
   BCRYPT_OAEP_PADDING_INFO = packed record
-    pszAlgId: PWideChar;
+    pszAlgId: LPWSTR;
     pbLabel: PByte;
     cbLabel: UInt32;
   end;
+
+  TNCryptKeyName = packed record
+    pszName: LPWSTR;
+    pszAlgid: LPWSTR;
+    dwLegacyKeySpec: DWORD;
+    dwFlags: DWORD;
+  end;
+  PNCryptKeyName = ^TNCryptKeyName;
 
   TNCryptCNG = class
   public
@@ -65,6 +73,9 @@ const
   function NCryptDecrypt(hKey: THandle; pbInput: Pointer; cbInput: ULONG;
     pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: ULONG;
     pcbResult: Pointer; dwFlags: ULONG): DWORD; stdcall; external NCryptDll;
+  function NCryptEnumKeys(hProvider: THandle; pszScope: LPCWSTR; ppKeyName: Pointer;
+    ppEnumState: PVOID; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptFreeBuffer(pvInput: PVOID): DWORD; stdcall; external NCryptDll;
 
 implementation
 
@@ -80,6 +91,8 @@ begin
      NTE_INVALID_HANDLE: Result := 'The handle in the hObject parameter is not valid';
      NTE_EXISTS: Result := 'A key with the specified name already exists and the NCRYPT_OVERWRITE_KEY_FLAG was not specified';
      NTE_BAD_KEYSET: Result := 'The specified key was not found';
+     NTE_NO_MORE_ITEMS: Result := 'No more data is available';
+     NTE_SILENT_CONTEXT: Result := 'Provider could not perform the action because the context was acquired as silent';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;
