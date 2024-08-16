@@ -7,7 +7,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
   Vcl.ExtCtrls, System.IOUtils, System.IniFiles, uNCryptCreatePersistedKey,
   uNCryptOpenStorageProvider, NCryptCNG, uNCryptFreeObject, uNCryptFinalizeKey,
-  uNCryptDeleteKey, uNCryptOpenKey, uNCryptEnumKeys;
+  uNCryptDeleteKey, uNCryptOpenKey, uNCryptEnumKeys, uNCryptEncrypt;
 
 type
   TfrmMain = class(TForm)
@@ -94,9 +94,10 @@ begin
     case Node.SelectedIndex of
       1: SelectedFrame := TfrmNCryptCreatePersistedKey.GetFrame;
       2: SelectedFrame := TfrmNCryptFinalizeKey.GetFrame;
+      3: SelectedFrame := TfrmNCryptEncrypt.GetFrame;
       4: SelectedFrame := TfrmNCryptOpenStorageProvider.GetFrame(OnChangePointers);
       5: SelectedFrame := TfrmNCryptFreeObject.GetFrame(OnChangePointers);
-      6: SelectedFrame := TfrmNCryptDeleteKey.GetFrame;
+      6: SelectedFrame := TfrmNCryptDeleteKey.GetFrame(OnChangePointers);
       7: SelectedFrame := TfrmNCryptOpenKey.GetFrame(OnChangePointers);
       8: SelectedFrame := TfrmNCryptEnumKeys.GetFrame;
     end;

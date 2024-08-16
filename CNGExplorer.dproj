@@ -132,7 +132,6 @@
             <Form>frmMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Forms\uNCryptEncryptDecrypt.pas"/>
         <DCCReference Include="Common\NCryptCNG.pas"/>
         <DCCReference Include="Common\NTStatusConsts.pas"/>
         <DCCReference Include="Forms\uNCryptOpenStorageProvider.pas"/>
@@ -142,6 +141,7 @@
         <DCCReference Include="Forms\uNCryptDeleteKey.pas"/>
         <DCCReference Include="Forms\uNCryptOpenKey.pas"/>
         <DCCReference Include="Forms\uNCryptEnumKeys.pas"/>
+        <DCCReference Include="Forms\uNCryptEncrypt.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

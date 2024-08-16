@@ -5,7 +5,6 @@ program CNGExplorer;
 uses
   Vcl.Forms,
   uCNGExplorer in 'uCNGExplorer.pas' {frmMain},
-  uNCryptEncryptDecrypt in 'Forms\uNCryptEncryptDecrypt.pas',
   NCryptCNG in 'Common\NCryptCNG.pas',
   NTStatusConsts in 'Common\NTStatusConsts.pas',
   uNCryptOpenStorageProvider in 'Forms\uNCryptOpenStorageProvider.pas',
@@ -14,7 +13,8 @@ uses
   uNCryptFinalizeKey in 'Forms\uNCryptFinalizeKey.pas',
   uNCryptDeleteKey in 'Forms\uNCryptDeleteKey.pas',
   uNCryptOpenKey in 'Forms\uNCryptOpenKey.pas',
-  uNCryptEnumKeys in 'Forms\uNCryptEnumKeys.pas';
+  uNCryptEnumKeys in 'Forms\uNCryptEnumKeys.pas',
+  uNCryptEncrypt in 'Forms\uNCryptEncrypt.pas';
 
 {$R *.res}
 

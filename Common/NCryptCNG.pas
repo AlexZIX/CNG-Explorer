@@ -94,6 +94,7 @@ begin
      NTE_NO_MORE_ITEMS: Result := 'No more data is available';
      NTE_SILENT_CONTEXT: Result := 'Provider could not perform the action because the context was acquired as silent';
      NTE_NOT_SUPPORTED: Result := 'The requested operation is not supported';
+     STATUS_INVALID_BUFFER_SIZE: Result := 'Invalid buffer size';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;
