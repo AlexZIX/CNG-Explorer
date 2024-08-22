@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'CNG Explorer'
-  ClientHeight = 625
+  ClientHeight = 645
   ClientWidth = 1081
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,14 +16,14 @@ object frmMain: TfrmMain
   OnDestroy = FormDestroy
   DesignSize = (
     1081
-    625)
+    645)
   TextHeight = 15
   object tvFunctions: TTreeView
     AlignWithMargins = True
     Left = 3
     Top = 3
     Width = 271
-    Height = 450
+    Height = 398
     Anchors = [akLeft, akTop, akBottom]
     Indent = 19
     TabOrder = 0
@@ -62,17 +62,64 @@ object frmMain: TfrmMain
     Left = 280
     Top = 3
     Width = 798
-    Height = 619
+    Height = 639
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
+    ExplicitHeight = 619
   end
   object lbPointers: TListBox
     Left = 3
-    Top = 459
+    Top = 407
     Width = 271
     Height = 163
     Anchors = [akLeft, akBottom]
     ItemHeight = 15
     TabOrder = 2
+  end
+  object pnlCopyrights: TPanel
+    Left = 3
+    Top = 576
+    Width = 271
+    Height = 66
+    Anchors = [akLeft, akBottom]
+    FullRepaint = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clDefault
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 3
+    object lblAuthor: TLabel
+      Left = 73
+      Top = 13
+      Width = 125
+      Height = 15
+      Caption = 'Author: Aleksey Pletnev'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clDefault
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblGithubLink: TLabel
+      Left = 23
+      Top = 37
+      Width = 225
+      Height = 15
+      Cursor = crHandPoint
+      Caption = 'https://github.com/AlexZIX/CNG-Explorer'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      OnClick = lblGithubLinkClick
+    end
   end
 end
