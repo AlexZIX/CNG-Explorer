@@ -98,7 +98,7 @@ begin
       end else
         S := S + '0';
 
-      lbKeys.Items.Add(S);
+      lbKeys.AddItem(S, TObject(NCryptKeyNamePtr.pszName));
     end;
   until ErrRet <> ERROR_SUCCESS;
 

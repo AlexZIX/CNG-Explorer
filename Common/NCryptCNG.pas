@@ -76,6 +76,11 @@ const
   function NCryptEnumKeys(hProvider: THandle; pszScope: LPCWSTR; ppKeyName: Pointer;
     ppEnumState: PVOID; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptFreeBuffer(pvInput: PVOID): DWORD; stdcall; external NCryptDll;
+  function NCryptGetProperty(hObject: THandle; pszProperty: LPCWSTR;
+    pbOutput: PByte; cbOutput: DWORD; pcbResult: PDWORD;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptSetProperty(hObject: THandle; pszProperty: LPCWSTR;
+    pbInput: PByte; cbInput: DWORD; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
 
 implementation
 
@@ -83,6 +88,8 @@ implementation
 
 class function TNCryptCNG.GetErrorDescription(ErrCode: UInt32): String;
 begin
+  Result := 'Unknown error';
+
   case ErrCode of
      ERROR_SUCCESS: Result := 'The function was successful';
      NTE_BAD_FLAGS: Result := 'The dwFlags parameter contains one or more flags that are not supported';
@@ -95,6 +102,8 @@ begin
      NTE_SILENT_CONTEXT: Result := 'Provider could not perform the action because the context was acquired as silent';
      NTE_NOT_SUPPORTED: Result := 'The requested operation is not supported';
      STATUS_INVALID_BUFFER_SIZE: Result := 'Invalid buffer size';
+     NTE_BAD_KEY_STATE: Result := 'Key not valid for use in specified state';
+     NTE_NOT_FOUND: Result := 'Object was not found';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;

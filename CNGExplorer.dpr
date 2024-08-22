@@ -14,7 +14,8 @@ uses
   uNCryptDeleteKey in 'Forms\uNCryptDeleteKey.pas',
   uNCryptOpenKey in 'Forms\uNCryptOpenKey.pas',
   uNCryptEnumKeys in 'Forms\uNCryptEnumKeys.pas',
-  uNCryptEncrypt in 'Forms\uNCryptEncrypt.pas';
+  uNCryptEncrypt in 'Forms\uNCryptEncrypt.pas',
+  uNCryptProperty in 'Forms\uNCryptProperty.pas';
 
 {$R *.res}
 

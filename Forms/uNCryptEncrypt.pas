@@ -50,7 +50,7 @@ type
     ClipboardStream: TMemoryStream;
     class var FFrame: TFrame;
   public
-    constructor Create(AOwner: TComponent);
+    constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
     class function GetFrame: TFrame;

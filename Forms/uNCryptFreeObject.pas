@@ -16,7 +16,7 @@ type
     Panel1: TPanel;
     leResult: TLabeledEdit;
     edtResultMessage: TEdit;
-    lblProviderName: TLabel;
+    lblObject: TLabel;
     cbHandle: TComboBox;
     btnHelp: TBitBtn;
     procedure btnHelpClick(Sender: TObject);

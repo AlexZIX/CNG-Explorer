@@ -49,7 +49,6 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     Anchors = [akLeft, akTop, akRight]
     BorderStyle = bsSingle
     TabOrder = 0
-    ExplicitWidth = 967
   end
   object btnExecute: TBitBtn
     Left = 860
@@ -68,7 +67,6 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     ParentFont = False
     TabOrder = 1
     OnClick = btnExecuteClick
-    ExplicitLeft = 858
   end
   object Panel1: TPanel
     Left = 0
@@ -78,7 +76,6 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     Anchors = [akLeft, akTop, akRight]
     BorderStyle = bsSingle
     TabOrder = 2
-    ExplicitWidth = 967
   end
   object leResult: TLabeledEdit
     Left = 96
@@ -100,7 +97,6 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     Anchors = [akLeft, akTop, akRight]
     ReadOnly = True
     TabOrder = 4
-    ExplicitWidth = 713
   end
   object btnHelp: TBitBtn
     Left = 763
@@ -118,7 +114,6 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     ParentFont = False
     TabOrder = 5
     OnClick = btnHelpClick
-    ExplicitLeft = 761
   end
   object cbMachineKeyFlag: TCheckBox
     Left = 125

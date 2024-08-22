@@ -142,6 +142,7 @@
         <DCCReference Include="Forms\uNCryptOpenKey.pas"/>
         <DCCReference Include="Forms\uNCryptEnumKeys.pas"/>
         <DCCReference Include="Forms\uNCryptEncrypt.pas"/>
+        <DCCReference Include="Forms\uNCryptProperty.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

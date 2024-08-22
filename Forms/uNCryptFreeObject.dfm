@@ -27,7 +27,7 @@ object frmNCryptFreeObject: TfrmNCryptFreeObject
     Height = 15
     Caption = 'Frees a CNG key storage object'
   end
-  object lblProviderName: TLabel
+  object lblObject: TLabel
     Left = 55
     Top = 67
     Width = 35
