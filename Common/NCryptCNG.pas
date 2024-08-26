@@ -104,6 +104,7 @@ begin
      STATUS_INVALID_BUFFER_SIZE: Result := 'Invalid buffer size';
      NTE_BAD_KEY_STATE: Result := 'Key not valid for use in specified state';
      NTE_NOT_FOUND: Result := 'Object was not found';
+     NTE_PERM: Result := 'Access denied';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;

@@ -31,14 +31,14 @@ object frmNCryptProperty: TfrmNCryptProperty
   end
   object lblFlags: TLabel
     Left = 92
-    Top = 355
+    Top = 383
     Width = 27
     Height = 15
     Caption = 'Flags'
   end
   object lblData: TLabel
     Left = 61
-    Top = 164
+    Top = 192
     Width = 57
     Height = 15
     Caption = 'Data (HEX)'
@@ -140,7 +140,7 @@ object frmNCryptProperty: TfrmNCryptProperty
   end
   object cbPersistOnly: TCheckBox
     Left = 124
-    Top = 353
+    Top = 381
     Width = 188
     Height = 17
     Caption = 'NCRYPT_PERSIST_ONLY_FLAG'
@@ -148,7 +148,7 @@ object frmNCryptProperty: TfrmNCryptProperty
   end
   object cbSilentFlag: TCheckBox
     Left = 124
-    Top = 376
+    Top = 404
     Width = 188
     Height = 17
     Caption = 'NCRYPT_SILENT_FLAG'
@@ -156,10 +156,11 @@ object frmNCryptProperty: TfrmNCryptProperty
   end
   object heData: TBCHexEditor
     Left = 124
-    Top = 159
+    Top = 187
     Width = 830
     Height = 186
     Anchors = [akLeft, akTop, akRight]
+    OnKeyUp = heDataKeyUp
     ParentShowHint = False
     ShowHint = False
     TabOrder = 8
@@ -205,12 +206,12 @@ object frmNCryptProperty: TfrmNCryptProperty
     Top = 124
     Width = 293
     Height = 23
-    ItemIndex = 0
     TabOrder = 11
     Text = 'Algorithm Group'
     Items.Strings = (
       'Algorithm Group'
       'Algorithm Name'
+      'Chaining Mode'
       'SmartCardAssociatedECDHKey'
       'Block Length'
       'SmartCardKeyCertificate'
@@ -254,5 +255,19 @@ object frmNCryptProperty: TfrmNCryptProperty
     NumGlyphs = 2
     TabOrder = 12
     OnClick = btnHelpPropertyNameClick
+  end
+  object leData: TLabeledEdit
+    Left = 124
+    Top = 154
+    Width = 293
+    Height = 23
+    EditLabel.Width = 60
+    EditLabel.Height = 15
+    EditLabel.Caption = 'Data (TEXT)'
+    LabelPosition = lpLeft
+    ReadOnly = True
+    TabOrder = 13
+    Text = ''
+    OnKeyUp = leDataKeyUp
   end
 end

@@ -31,10 +31,13 @@ type
     cbHandle: TComboBox;
     cbPropertyName: TComboBox;
     btnHelpPropertyName: TBitBtn;
+    leData: TLabeledEdit;
     procedure btnHelpClick(Sender: TObject);
     procedure btnExecuteClick(Sender: TObject);
     procedure rgOperationClick(Sender: TObject);
     procedure btnHelpPropertyNameClick(Sender: TObject);
+    procedure leDataKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure heDataKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     ClipboardStream: TMemoryStream;
     class var FFrame: TFrame;
@@ -55,6 +58,7 @@ var ErrRet: UInt32;
     Data: TBytes;
     memStream: TMemoryStream;
     ObjectHandle: THandle;
+    S: String;
 begin
   memStream := TMemoryStream.Create;
   try
@@ -80,7 +84,15 @@ begin
       if ErrRet = ERROR_SUCCESS then
       begin
         memStream.Write(Data[0], cbResult);
+
+        // Load data to HEX edit
         heData.LoadFromStream(memStream);
+
+        // Load data to TEXT edit
+        memStream.Position := 0;
+        SetLength(S, memStream.Size div 2);
+        memStream.Read(S[1], memStream.Size);
+        leData.Text := S;
       end;
     end else
     begin
@@ -142,11 +154,55 @@ begin
   Result := FFrame;
 end;
 
+procedure TfrmNCryptProperty.heDataKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var memStream: TMemoryStream;
+    S: String;
+    TextLen: UInt16;
+begin
+  if not heData.ReadOnlyView then
+  begin
+    memStream := TMemoryStream.Create;
+    try
+      heData.SaveToStream(memStream);
+      memStream.Position := 0;
+      TextLen := memStream.Size div 2;
+      if TextLen < 2 then
+        TextLen := 2;
+      SetLength(S, TextLen);
+      memStream.Read(S[1], memStream.Size);
+      leData.Text := S;
+    finally
+      memStream.Free;
+    end;
+  end;
+end;
+
+procedure TfrmNCryptProperty.leDataKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var memStream: TMemoryStream;
+    S: String;
+begin
+  if not leData.ReadOnly then
+  begin
+    memStream := TMemoryStream.Create;
+    try
+      S := leData.Text + #0;
+      memStream.Write(S[1], Length(S) * 2);
+      heData.LoadFromStream(memStream);
+    finally
+      memStream.Free;
+    end;
+  end;
+end;
+
 procedure TfrmNCryptProperty.rgOperationClick(Sender: TObject);
 begin
   heData.DataSize := 0;
+  leData.Text := '';
   heData.ReadOnlyView := rgOperation.ItemIndex = 0;
   heData.InsertMode := rgOperation.ItemIndex = 1;
+  leData.ReadOnly := rgOperation.ItemIndex = 0;
 end;
 
 end.
