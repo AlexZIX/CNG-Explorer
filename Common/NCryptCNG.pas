@@ -69,10 +69,10 @@ const
   function NCryptFreeObject(hObject: THandle): UInt32; stdcall; external NCryptDll;
   function NCryptEncrypt(hKey: THandle; pbInput: Pointer; cbInput: ULONG;
     pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: ULONG;
-    pcbResult: Pointer; dwFlags: ULONG): DWORD; stdcall; external NCryptDll;
+    pcbResult: Pointer; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptDecrypt(hKey: THandle; pbInput: Pointer; cbInput: ULONG;
     pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: ULONG;
-    pcbResult: Pointer; dwFlags: ULONG): DWORD; stdcall; external NCryptDll;
+    pcbResult: Pointer; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptEnumKeys(hProvider: THandle; pszScope: LPCWSTR; ppKeyName: Pointer;
     ppEnumState: PVOID; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptFreeBuffer(pvInput: PVOID): DWORD; stdcall; external NCryptDll;
@@ -81,6 +81,12 @@ const
     dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptSetProperty(hObject: THandle; pszProperty: LPCWSTR;
     pbInput: PByte; cbInput: DWORD; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptSignHash(hKey: THandle; pPaddingInfo: Pointer; pbHashValue: Pointer;
+    cbHashValue: DWORD; pbSignature: Pointer; cbSignature: DWORD; pcbResult: Pointer;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptVerifySignature(hKey: THandle; pPaddingInfo: Pointer; pbHashValue: Pointer;
+    cbHashValue: DWORD; pbSignature: Pointer; cbSignature: DWORD;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
 
 implementation
 
@@ -105,6 +111,7 @@ begin
      NTE_BAD_KEY_STATE: Result := 'Key not valid for use in specified state';
      NTE_NOT_FOUND: Result := 'Object was not found';
      NTE_PERM: Result := 'Access denied';
+     NTE_BAD_SIGNATURE: Result := 'Bad signature';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;

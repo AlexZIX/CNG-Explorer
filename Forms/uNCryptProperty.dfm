@@ -212,6 +212,7 @@ object frmNCryptProperty: TfrmNCryptProperty
       'Algorithm Group'
       'Algorithm Name'
       'Chaining Mode'
+      'IV'
       'SmartCardAssociatedECDHKey'
       'Block Length'
       'SmartCardKeyCertificate'

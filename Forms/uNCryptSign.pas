@@ -1,4 +1,4 @@
-unit uNCryptEncrypt;
+unit uNCryptSign;
 
 interface
 
@@ -10,7 +10,7 @@ uses
   Winapi.ShellAPI, Vcl.Grids, BCHexEditor, Vcl.Menus, NTStatusConsts;
 
 type
-  TfrmNCryptEncrypt = class(TFrame)
+  TfrmNCryptSign = class(TFrame)
     lblFunctionName: TLabel;
     lblFunctionDescription: TLabel;
     pnlTopSeparator: TPanel;
@@ -22,12 +22,11 @@ type
     cbPadPKCS1: TCheckBox;
     lblFlags: TLabel;
     cbSilentFlag: TCheckBox;
-    cbNoPadding: TCheckBox;
-    cbPadOAEP: TCheckBox;
-    lblInputData: TLabel;
-    heInput: TBCHexEditor;
-    heOutput: TBCHexEditor;
-    lblOutputData: TLabel;
+    cbPadPSS: TCheckBox;
+    lblData: TLabel;
+    heData: TBCHexEditor;
+    heSignature: TBCHexEditor;
+    lblSignature: TLabel;
     rgOperation: TRadioGroup;
     lblOperation: TLabel;
     pmData: TPopupMenu;
@@ -63,51 +62,55 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmNCryptEncrypt.btnExecuteClick(Sender: TObject);
+procedure TfrmNCryptSign.btnExecuteClick(Sender: TObject);
 var ErrRet: UInt32;
     dwFlags, cbResult: UInt32;
-    inData, outData: TBytes;
+    Data, Signature: TBytes;
     memStream: TMemoryStream;
 begin
-  heOutput.DataSize := 0;
-
   memStream := TMemoryStream.Create;
   try
-    if heInput.DataSize > 0 then
+    if heData.DataSize > 0 then
     begin
-      heInput.SaveToStream(memStream);
-      SetLength(inData, memStream.Size);
+      heData.SaveToStream(memStream);
+      SetLength(Data, memStream.Size);
       memStream.Position := 0;
-      memStream.Read(inData[0], memStream.Size);
+      memStream.Read(Data[0], memStream.Size);
       memStream.Clear;
 
-      if Length(inData) < 32 then
-        SetLength(outData, 32)
-      else
-        SetLength(outData, Length(inData) * 2);
+      if rgOperation.ItemIndex = 1 then
+      begin
+        heSignature.SaveToStream(memStream);
+        SetLength(Signature, memStream.Size);
+        memStream.Position := 0;
+        memStream.Read(Signature[0], memStream.Size);
+        memStream.Clear;
+      end else
+      begin
+        heSignature.DataSize := 0;
+        SetLength(Signature, 2048);
+      end;
 
       dwFlags := 0;
-      if cbNoPadding.Checked then
-        dwFlags := dwFlags or NCRYPT_NO_PADDING_FLAG;
-      if cbPadOAEP.Checked then
-        dwFlags := dwFlags or NCRYPT_PAD_OAEP_FLAG;
+      if cbPadPSS.Checked then
+        dwFlags := dwFlags or NCRYPT_PAD_PSS_FLAG;
       if cbPadPKCS1.Checked then
         dwFlags := dwFlags or NCRYPT_PAD_PKCS1_FLAG;
       if cbSilentFlag.Checked then
         dwFlags := dwFlags or NCRYPT_SILENT_FLAG;
 
       if rgOperation.ItemIndex = 0 then
-        ErrRet := NCryptEncrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
-                    nil, @outData[0], Length(outData), @cbResult, dwFlags)
+        ErrRet := NCryptSignHash(TNCryptCNG.hKey, nil, @Data[0], Length(Data),
+                    @Signature[0], Length(Signature), @cbResult, dwFlags)
       else
-        ErrRet := NCryptDecrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
-                    nil, @outData[0], Length(outData), @cbResult, dwFlags);
+        ErrRet := NCryptVerifySignature(TNCryptCNG.hKey, nil, @Data[0], Length(Data),
+                    @Signature[0], Length(Signature), dwFlags);
 
-      if ErrRet = ERROR_SUCCESS then
+      if (ErrRet = ERROR_SUCCESS) and (rgOperation.ItemIndex = 0) then
       begin
-        memStream.Write(outData[0], cbResult);
-        heOutput.LoadFromStream(memStream);
-      end;
+        memStream.Write(Signature[0], cbResult);
+        heSignature.LoadFromStream(memStream);
+      end
     end else
       ErrRet := NTE_INVALID_PARAMETER;
   finally
@@ -118,33 +121,33 @@ begin
   edtResultMessage.Text := TNCryptCNG.GetErrorDescription(ErrRet);
 end;
 
-procedure TfrmNCryptEncrypt.btnHelpClick(Sender: TObject);
+procedure TfrmNCryptSign.btnHelpClick(Sender: TObject);
 begin
   if rgOperation.ItemIndex = 0 then
     ShellExecute(0, 'Open',
-      'https://learn.microsoft.com/en-us/windows/win32/api/ncrypt/nf-ncrypt-ncryptencrypt',
+      'https://learn.microsoft.com/en-us/windows/win32/api/ncrypt/nf-ncrypt-ncryptsignhash',
       '', '', SW_SHOWNORMAL)
   else
     ShellExecute(0, 'Open',
-      'https://learn.microsoft.com/en-us/windows/win32/api/ncrypt/nf-ncrypt-ncryptdecrypt',
+      'https://learn.microsoft.com/en-us/windows/win32/api/ncrypt/nf-ncrypt-ncryptverifysignature',
       '', '', SW_SHOWNORMAL);
 end;
 
-constructor TfrmNCryptEncrypt.Create(AOwner: TComponent);
+constructor TfrmNCryptSign.Create(AOwner: TComponent);
 begin
   inherited;
 
   ClipboardStream := TMemoryStream.Create;
 end;
 
-destructor TfrmNCryptEncrypt.Destroy;
+destructor TfrmNCryptSign.Destroy;
 begin
   ClipboardStream.Free;
 
   inherited;
 end;
 
-class function TfrmNCryptEncrypt.GetFrame: TFrame;
+class function TfrmNCryptSign.GetFrame: TFrame;
 begin
   if not Assigned(FFrame) then
     FFrame := Create(nil);
@@ -152,7 +155,7 @@ begin
   Result := FFrame;
 end;
 
-procedure TfrmNCryptEncrypt.FillWithData(Sender: TObject);
+procedure TfrmNCryptSign.FillWithData(Sender: TObject);
 var hePopup: TBCHexEditor;
     FillStream: TMemoryStream;
     FillBytes: TBytes;
@@ -201,14 +204,14 @@ begin
   end;
 end;
 
-procedure TfrmNCryptEncrypt.pmiClearClick(Sender: TObject);
+procedure TfrmNCryptSign.pmiClearClick(Sender: TObject);
 var hePopup: TBCHexEditor;
 begin
   hePopup := ((Sender as TMenuItem).GetParentMenu as TPopupMenu).PopupComponent as TBCHexEditor;
   hePopup.DataSize := 0;
 end;
 
-procedure TfrmNCryptEncrypt.pmiCopyClick(Sender: TObject);
+procedure TfrmNCryptSign.pmiCopyClick(Sender: TObject);
 var hePopup: TBCHexEditor;
 begin
   hePopup := ((Sender as TMenuItem).GetParentMenu as TPopupMenu).PopupComponent as TBCHexEditor;
@@ -216,7 +219,7 @@ begin
   hePopup.SaveToStream(ClipboardStream);
 end;
 
-procedure TfrmNCryptEncrypt.pmiPasteClick(Sender: TObject);
+procedure TfrmNCryptSign.pmiPasteClick(Sender: TObject);
 var hePopup: TBCHexEditor;
 begin
   hePopup := ((Sender as TMenuItem).GetParentMenu as TPopupMenu).PopupComponent as TBCHexEditor;

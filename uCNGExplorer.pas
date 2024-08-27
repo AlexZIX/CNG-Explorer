@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls, System.IOUtils, System.IniFiles, uNCryptCreatePersistedKey,
   uNCryptOpenStorageProvider, NCryptCNG, uNCryptFreeObject, uNCryptFinalizeKey,
   uNCryptDeleteKey, uNCryptOpenKey, uNCryptEnumKeys, uNCryptEncrypt, uNCryptProperty,
-  Winapi.ShellAPI;
+  Winapi.ShellAPI, uNCryptSign;
 
 type
   TfrmMain = class(TForm)
@@ -162,6 +162,7 @@ begin
       7: SelectedFrame := TfrmNCryptOpenKey.GetFrame(OnChangePointers);
       8: SelectedFrame := TfrmNCryptEnumKeys.GetFrame;
       9: SelectedFrame := TfrmNCryptProperty.GetFrame;
+     10: SelectedFrame := TfrmNCryptSign.GetFrame;
     end;
 
     SelectedFrameIndex := Node.SelectedIndex;

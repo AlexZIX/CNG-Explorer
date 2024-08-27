@@ -1,4 +1,4 @@
-object frmNCryptEncrypt: TfrmNCryptEncrypt
+object frmNCryptSign: TfrmNCryptSign
   Left = 0
   Top = 0
   Width = 977
@@ -10,9 +10,9 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   object lblFunctionName: TLabel
     Left = 16
     Top = 3
-    Width = 300
+    Width = 386
     Height = 28
-    Caption = 'NCryptEncrypt/NCryptDecrypt '
+    Caption = 'NCryptSignHash/NCryptVerifySignature '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
@@ -23,9 +23,11 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   object lblFunctionDescription: TLabel
     Left = 16
     Top = 32
-    Width = 177
+    Width = 537
     Height = 15
-    Caption = 'Encrypts/Decrypts a block of data'
+    Caption = 
+      'Creates a signature of a hash value and verifies that the specif' +
+      'ied signature matches the specified hash'
   end
   object lblFlags: TLabel
     Left = 92
@@ -34,19 +36,19 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     Height = 15
     Caption = 'Flags'
   end
-  object lblInputData: TLabel
-    Left = 65
+  object lblData: TLabel
+    Left = 95
     Top = 101
-    Width = 54
+    Width = 24
     Height = 15
-    Caption = 'Input data'
+    Caption = 'Data'
   end
-  object lblOutputData: TLabel
-    Left = 55
+  object lblSignature: TLabel
+    Left = 68
     Top = 263
-    Width = 64
+    Width = 50
     Height = 15
-    Caption = 'Output data'
+    Caption = 'Signature'
   end
   object lblOperation: TLabel
     Left = 65
@@ -131,7 +133,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbPadPKCS1: TCheckBox
     Left = 124
-    Top = 465
+    Top = 443
     Width = 188
     Height = 17
     Caption = 'NCRYPT_PAD_PKCS1_FLAG'
@@ -139,29 +141,21 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbSilentFlag: TCheckBox
     Left = 124
-    Top = 488
+    Top = 466
     Width = 188
     Height = 17
     Caption = 'NCRYPT_SILENT_FLAG'
     TabOrder = 7
   end
-  object cbNoPadding: TCheckBox
+  object cbPadPSS: TCheckBox
     Left = 124
     Top = 421
-    Width = 188
-    Height = 17
-    Caption = 'NCRYPT_NO_PADDING_FLAG'
-    TabOrder = 8
-  end
-  object cbPadOAEP: TCheckBox
-    Left = 124
-    Top = 443
     Width = 181
     Height = 17
-    Caption = 'NCRYPT_PAD_OAEP_FLAG'
-    TabOrder = 9
+    Caption = 'NCRYPT_PAD_PSS_FLAG'
+    TabOrder = 8
   end
-  object heInput: TBCHexEditor
+  object heData: TBCHexEditor
     Left = 124
     Top = 96
     Width = 830
@@ -170,11 +164,11 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     ParentShowHint = False
     PopupMenu = pmData
     ShowHint = False
-    TabOrder = 10
+    TabOrder = 9
     InsertMode = True
     ShowRuler = True
   end
-  object heOutput: TBCHexEditor
+  object heSignature: TBCHexEditor
     Left = 124
     Top = 257
     Width = 830
@@ -183,7 +177,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     ParentShowHint = False
     PopupMenu = pmData
     ShowHint = False
-    TabOrder = 11
+    TabOrder = 10
     InsertMode = True
     ShowRuler = True
   end
@@ -201,10 +195,10 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     HeaderFont.Style = []
     ItemIndex = 0
     Items.Strings = (
-      'Encrypt'
-      'Decrypt')
+      'Sign'
+      'Verify')
     ShowFrame = False
-    TabOrder = 12
+    TabOrder = 11
     StyleElements = []
   end
   object pmData: TPopupMenu
