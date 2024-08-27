@@ -9,19 +9,27 @@ interface
 uses Winapi.Windows, NTStatusConsts;
 
 type
-  BCRYPT_OAEP_PADDING_INFO = packed record
+  BCRYPT_OAEP_PADDING_INFO = record
     pszAlgId: LPWSTR;
     pbLabel: PByte;
     cbLabel: UInt32;
   end;
 
-  TNCryptKeyName = packed record
+  TNCryptKeyName = record
     pszName: LPWSTR;
     pszAlgid: LPWSTR;
     dwLegacyKeySpec: DWORD;
     dwFlags: DWORD;
   end;
   PNCryptKeyName = ^TNCryptKeyName;
+
+  TNCryptAlgorithmName = record
+    pszName: LPWSTR;
+    dwClass: DWORD;
+    dwAlgOperations: DWORD;
+    dwFlags: DWORD;
+  end;
+  PNCryptAlgorithmName = ^TNCryptAlgorithmName;
 
   TNCryptCNG = class
   public
@@ -53,6 +61,13 @@ const
   NCRYPT_PAD_PKCS1_FLAG = $00000002;
   NCRYPT_PAD_OAEP_FLAG = $00000004;
   NCRYPT_PAD_PSS_FLAG = $00000008;
+
+  // For NCryptEnumAlgorithms
+  NCRYPT_CIPHER_OPERATION = $00000001;
+  NCRYPT_HASH_OPERATION = $00000002;
+  NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION = $00000004;
+  NCRYPT_SECRET_AGREEMENT_OPERATION = $00000008;
+  NCRYPT_SIGNATURE_OPERATION = $00000010;
 
   AT_KEYEXCHANGE = $00000001;
   AT_SIGNATURE = $00000002;
@@ -87,6 +102,8 @@ const
   function NCryptVerifySignature(hKey: THandle; pPaddingInfo: Pointer; pbHashValue: Pointer;
     cbHashValue: DWORD; pbSignature: Pointer; cbSignature: DWORD;
     dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptEnumAlgorithms(hProvider: THandle; dwAlgOperations: DWORD;
+    pdwAlgCount: Pointer; ppAlgList: Pointer; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
 
 implementation
 
