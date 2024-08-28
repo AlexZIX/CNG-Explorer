@@ -2,11 +2,11 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
   Left = 0
   Top = 0
   Width = 980
-  Height = 638
+  Height = 677
   TabOrder = 0
   DesignSize = (
     980
-    638)
+    677)
   object lblFunctionName: TLabel
     Left = 16
     Top = 3
@@ -56,7 +56,6 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     Anchors = [akLeft, akTop, akRight]
     BorderStyle = bsSingle
     TabOrder = 0
-    ExplicitWidth = 969
   end
   object btnExecute: TBitBtn
     Left = 871
@@ -75,7 +74,6 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     ParentFont = False
     TabOrder = 1
     OnClick = btnExecuteClick
-    ExplicitLeft = 860
   end
   object Panel1: TPanel
     Left = 0
@@ -85,7 +83,6 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     Anchors = [akLeft, akTop, akRight]
     BorderStyle = bsSingle
     TabOrder = 2
-    ExplicitWidth = 969
   end
   object leResult: TLabeledEdit
     Left = 96
@@ -107,7 +104,6 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     Anchors = [akLeft, akTop, akRight]
     ReadOnly = True
     TabOrder = 4
-    ExplicitWidth = 715
   end
   object btnHelp: TBitBtn
     Left = 774
@@ -125,7 +121,6 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     ParentFont = False
     TabOrder = 5
     OnClick = btnHelpClick
-    ExplicitLeft = 763
   end
   object cbCipherOperation: TCheckBox
     Left = 125
@@ -147,7 +142,7 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     Left = 96
     Top = 312
     Width = 862
-    Height = 313
+    Height = 337
     Anchors = [akLeft, akTop, akRight]
     ItemHeight = 15
     TabOrder = 8

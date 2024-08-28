@@ -45,6 +45,26 @@ var ErrRet, i: UInt32;
     NCryptAlgorithmNamePtr: PNCryptAlgorithmName;
     NCryptAlgorithmName: TNCryptAlgorithmName;
     S, FlagsStr: String;
+
+  procedure AddFlag(FlagName: String);
+  begin
+    if FlagsStr <> '' then
+      FlagsStr := FlagsStr + ' or ';
+
+    FlagsStr := FlagsStr + FlagName;
+  end;
+
+  function GetDwClassValue(dwClass: DWORD): String;
+  begin
+    Result := 'UNKNOWN';
+
+    case dwClass of
+      3: Result := 'NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE';
+      4: Result := 'NCRYPT_SECRET_AGREEMENT_INTERFACE';
+      5: Result := 'NCRYPT_SIGNATURE_INTERFACE';
+    end;
+  end;
+
 begin
   lbAlgorithms.Clear;
 
@@ -74,8 +94,20 @@ begin
       Move(Pointer(NativeUInt(NCryptAlgorithmNamePtr) + SizeOf(NCryptAlgorithmName) * i)^,
         NCryptAlgorithmName, SizeOf(NCryptAlgorithmName));
 
-       S := 'AlgoName: ' + NCryptAlgorithmName.pszName;
-       lbAlgorithms.Items.Add(S);
+      FlagsStr := '';
+      if (NCryptAlgorithmName.dwAlgOperations and NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION) <> 0 then
+        AddFlag('NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION');
+      if (NCryptAlgorithmName.dwAlgOperations and NCRYPT_SECRET_AGREEMENT_OPERATION) <> 0 then
+        AddFlag('NCRYPT_SECRET_AGREEMENT_OPERATION');
+      if (NCryptAlgorithmName.dwAlgOperations and NCRYPT_SIGNATURE_OPERATION) <> 0 then
+        AddFlag('NCRYPT_SIGNATURE_OPERATION');
+
+      S := 'AlgoName: ' + NCryptAlgorithmName.pszName + ', ' +
+           'Class: ' + GetDwClassValue(NCryptAlgorithmName.dwClass)  + ', ' +
+           'Operation: ' + FlagsStr + ', ' +
+           'Flags: ' + IntToStr(NCryptAlgorithmName.dwFlags);
+
+      lbAlgorithms.Items.Add(S);
     end;
   end;
 

@@ -72,9 +72,9 @@ begin
       FlagsStr := '';
       if NCryptKeyNamePtr.dwFlags <> 0 then
       begin
-        if (NCryptKeyNamePtr.dwFlags and NCRYPT_MACHINE_KEY_FLAG) = 1 then
+        if (NCryptKeyNamePtr.dwFlags and NCRYPT_MACHINE_KEY_FLAG) <> 0 then
           AddFlag('NCRYPT_MACHINE_KEY_FLAG');
-        if (NCryptKeyNamePtr.dwFlags and NCRYPT_OVERWRITE_KEY_FLAG) = 1 then
+        if (NCryptKeyNamePtr.dwFlags and NCRYPT_OVERWRITE_KEY_FLAG) <> 0 then
           AddFlag('NCRYPT_OVERWRITE_KEY_FLAG');
         {if (NCryptKeyNamePtr.dwFlags and NCRYPT_REQUIRE_VBS_FLAG) = 1 then
           AddFlag('NCRYPT_REQUIRE_VBS_FLAG');
@@ -89,9 +89,9 @@ begin
       FlagsStr := '';
       if NCryptKeyNamePtr.dwLegacyKeySpec <> 0 then
       begin
-        if (NCryptKeyNamePtr.dwLegacyKeySpec and AT_KEYEXCHANGE) = 1 then
+        if (NCryptKeyNamePtr.dwLegacyKeySpec and AT_KEYEXCHANGE) <> 0 then
           AddFlag('AT_KEYEXCHANGE');
-        if (NCryptKeyNamePtr.dwLegacyKeySpec and AT_SIGNATURE) = 1 then
+        if (NCryptKeyNamePtr.dwLegacyKeySpec and AT_SIGNATURE) <> 0 then
           AddFlag('AT_SIGNATURE');
 
         S := S + FlagsStr;
