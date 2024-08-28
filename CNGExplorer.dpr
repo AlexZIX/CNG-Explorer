@@ -17,7 +17,8 @@ uses
   uNCryptEncrypt in 'Forms\uNCryptEncrypt.pas',
   uNCryptProperty in 'Forms\uNCryptProperty.pas',
   uNCryptSign in 'Forms\uNCryptSign.pas',
-  uNCryptEnumAlgorithms in 'Forms\uNCryptEnumAlgorithms.pas';
+  uNCryptEnumAlgorithms in 'Forms\uNCryptEnumAlgorithms.pas',
+  uNCryptExportImport in 'Forms\uNCryptExportImport.pas';
 
 {$R *.res}
 

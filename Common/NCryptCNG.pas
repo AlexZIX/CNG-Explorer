@@ -69,6 +69,12 @@ const
   NCRYPT_SECRET_AGREEMENT_OPERATION = $00000008;
   NCRYPT_SIGNATURE_OPERATION = $00000010;
 
+  // NCRYPT_EXPORT_POLICY_PROPERTY
+  NCRYPT_ALLOW_EXPORT_FLAG = $00000001;
+  NCRYPT_ALLOW_PLAINTEXT_EXPORT_FLAG = $00000002;
+  NCRYPT_ALLOW_ARCHIVING_FLAG = $00000004;
+  NCRYPT_ALLOW_PLAINTEXT_ARCHIVING_FLAG = $00000008;
+
   AT_KEYEXCHANGE = $00000001;
   AT_SIGNATURE = $00000002;
 
@@ -83,7 +89,7 @@ const
   function NCryptFinalizeKey(hKey: THandle; dwFlags: DWord): UInt32; stdcall; external NCryptDll;
   function NCryptFreeObject(hObject: THandle): UInt32; stdcall; external NCryptDll;
   function NCryptEncrypt(hKey: THandle; pbInput: Pointer; cbInput: ULONG;
-    pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: ULONG;
+    pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: DWORD;
     pcbResult: Pointer; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptDecrypt(hKey: THandle; pbInput: Pointer; cbInput: ULONG;
     pPaddingInfo: Pointer; pbOutput: Pointer; cbOutput: ULONG;
@@ -104,6 +110,12 @@ const
     dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptEnumAlgorithms(hProvider: THandle; dwAlgOperations: DWORD;
     pdwAlgCount: Pointer; ppAlgList: Pointer; dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptExportKey(hKey: THandle; hExportKey: THandle; pszBlobType: LPCWSTR;
+    pParameterList: Pointer; pbOutput: Pointer; cbOutput: DWORD; pcbResult: Pointer;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptImportKey(hProvider: THandle; hImportKey: THandle; pszBlobType: LPCWSTR;
+    NCryptBufferDesc: Pointer; phKey: Pointer; pbData: Pointer; cbData: DWORD;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
 
 implementation
 
@@ -129,6 +141,7 @@ begin
      NTE_NOT_FOUND: Result := 'Object was not found';
      NTE_PERM: Result := 'Access denied';
      NTE_BAD_SIGNATURE: Result := 'Bad signature';
+     NTE_BAD_TYPE: Result := 'Invalid type specified';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;

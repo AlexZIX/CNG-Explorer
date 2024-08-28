@@ -155,6 +155,7 @@
         <DCCReference Include="Forms\uNCryptProperty.pas"/>
         <DCCReference Include="Forms\uNCryptSign.pas"/>
         <DCCReference Include="Forms\uNCryptEnumAlgorithms.pas"/>
+        <DCCReference Include="Forms\uNCryptExportImport.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -194,6 +195,12 @@
                 <DeployFile LocalName="Win64\Debug\CNGExplorer.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>CNGExplorer.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\CNGExplorer.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win64">
+                        <RemoteName>CNGExplorer.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

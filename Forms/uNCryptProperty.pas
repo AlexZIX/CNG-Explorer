@@ -75,6 +75,7 @@ begin
 
     if rgOperation.ItemIndex = 0 then
     begin
+      leData.Text := '';
       heData.DataSize := 0;
       SetLength(Data, 2048);
 
