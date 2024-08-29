@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.NumberBox, NCryptCNG, Winapi.ShellAPI;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.NumberBox, NCryptCNG, Winapi.ShellAPI,
+  Helpers, Vcl.Clipbrd;
 
 type
   TfrmNCryptEnumAlgorithms = class(TFrame)
@@ -29,6 +30,7 @@ type
     lblFlags: TLabel;
     procedure btnHelpClick(Sender: TObject);
     procedure btnExecuteClick(Sender: TObject);
+    procedure lbAlgorithmsDblClick(Sender: TObject);
   private
     class var FFrame: TFrame;
   public
@@ -107,7 +109,7 @@ begin
            'Operation: ' + FlagsStr + ', ' +
            'Flags: ' + IntToStr(NCryptAlgorithmName.dwFlags);
 
-      lbAlgorithms.Items.Add(S);
+      lbAlgorithms.AddItem(S, TStringObject.Create(NCryptAlgorithmName.pszName));
     end;
   end;
 
@@ -130,6 +132,12 @@ begin
     FFrame := Create(nil);
 
   Result := FFrame;
+end;
+
+procedure TfrmNCryptEnumAlgorithms.lbAlgorithmsDblClick(Sender: TObject);
+begin
+  if lbAlgorithms.ItemIndex <> -1 then
+    Clipboard.AsText := TStringObject(lbAlgorithms.Items.Objects[lbAlgorithms.ItemIndex]).Value;
 end;
 
 end.

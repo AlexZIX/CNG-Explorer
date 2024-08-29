@@ -31,6 +31,12 @@ type
   end;
   PNCryptAlgorithmName = ^TNCryptAlgorithmName;
 
+  TNCryptProviderName = record
+    pszName: LPWSTR;
+    pszComment: LPWSTR;
+  end;
+  PNCryptProviderName = ^TNCryptProviderName;
+
   TNCryptCNG = class
   public
     class var hProvider: THandle;
@@ -115,6 +121,8 @@ const
     dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
   function NCryptImportKey(hProvider: THandle; hImportKey: THandle; pszBlobType: LPCWSTR;
     NCryptBufferDesc: Pointer; phKey: Pointer; pbData: Pointer; cbData: DWORD;
+    dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
+  function NCryptEnumStorageProviders(pdwProviderCount: Pointer; ppProviderList: Pointer;
     dwFlags: DWORD): DWORD; stdcall; external NCryptDll;
 
 implementation

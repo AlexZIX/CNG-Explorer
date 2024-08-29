@@ -1,4 +1,4 @@
-object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
+object frmNCryptEnumStorageProviders: TfrmNCryptEnumStorageProviders
   Left = 0
   Top = 0
   Width = 980
@@ -10,9 +10,9 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
   object lblFunctionName: TLabel
     Left = 16
     Top = 3
-    Width = 232
+    Width = 289
     Height = 28
-    Caption = 'NCryptEnumAlgorithms '
+    Caption = 'NCryptEnumStorageProviders '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
@@ -23,27 +23,20 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
   object lblFunctionDescription: TLabel
     Left = 16
     Top = 32
-    Width = 321
+    Width = 303
     Height = 15
-    Caption = 'Obtains the names of the keys that are stored by the provider'
+    Caption = 'Obtains the names of the registered key storage providers'
   end
-  object lblAlgOperations: TLabel
-    Left = 41
-    Top = 63
-    Width = 79
-    Height = 15
-    Caption = 'Alg Operations'
-  end
-  object lblAlgorithms: TLabel
-    Left = 32
+  object lblProviders: TLabel
+    Left = 44
     Top = 314
-    Width = 59
+    Width = 49
     Height = 15
-    Caption = 'Algorithms'
+    Caption = 'Providers'
   end
   object lblFlags: TLabel
     Left = 93
-    Top = 178
+    Top = 64
     Width = 27
     Height = 15
     Caption = 'Flags'
@@ -122,65 +115,25 @@ object frmNCryptEnumAlgorithms: TfrmNCryptEnumAlgorithms
     TabOrder = 5
     OnClick = btnHelpClick
   end
-  object cbCipherOperation: TCheckBox
-    Left = 125
-    Top = 63
-    Width = 188
-    Height = 17
-    Caption = 'NCRYPT_CIPHER_OPERATION'
-    TabOrder = 6
-  end
   object cbSilentFlag: TCheckBox
     Left = 125
-    Top = 178
+    Top = 64
     Width = 188
     Height = 17
     Caption = 'NCRYPT_SILENT_FLAG'
-    TabOrder = 7
+    TabOrder = 6
   end
-  object lbAlgorithms: TListBox
+  object lbProviders: TListBox
     Left = 96
     Top = 312
     Width = 862
     Height = 337
-    Hint = 'Double click to copy algorithm name'
+    Hint = 'Double click to copy provider name'
     Anchors = [akLeft, akTop, akRight]
     ItemHeight = 15
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 8
-    OnDblClick = lbAlgorithmsDblClick
-  end
-  object cbHashOperation: TCheckBox
-    Left = 125
-    Top = 86
-    Width = 188
-    Height = 17
-    Caption = 'NCRYPT_HASH_OPERATION'
-    TabOrder = 9
-  end
-  object cbAsymmetricEncryptionOperation: TCheckBox
-    Left = 125
-    Top = 109
-    Width = 300
-    Height = 17
-    Caption = 'NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION'
-    TabOrder = 10
-  end
-  object cbSecretAgreementOperation: TCheckBox
-    Left = 125
-    Top = 132
-    Width = 284
-    Height = 17
-    Caption = 'NCRYPT_SECRET_AGREEMENT_OPERATION'
-    TabOrder = 11
-  end
-  object cbSignatureOperation: TCheckBox
-    Left = 125
-    Top = 155
-    Width = 188
-    Height = 17
-    Caption = 'NCRYPT_SIGNATURE_OPERATION'
-    TabOrder = 12
+    TabOrder = 7
+    OnDblClick = lbProvidersDblClick
   end
 end
