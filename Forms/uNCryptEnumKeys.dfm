@@ -136,8 +136,12 @@ object frmNCryptEnumKeys: TfrmNCryptEnumKeys
     Top = 312
     Width = 851
     Height = 265
+    Hint = 'Double click to copy key name'
     Anchors = [akLeft, akTop, akRight]
     ItemHeight = 15
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 8
+    OnDblClick = lbKeysDblClick
   end
 end

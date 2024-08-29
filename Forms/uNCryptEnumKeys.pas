@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.NumberBox, NCryptCNG, Winapi.ShellAPI;
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.NumberBox, NCryptCNG, Winapi.ShellAPI,
+  Vcl.Clipbrd, Helpers;
 
 type
   TfrmNCryptEnumKeys = class(TFrame)
@@ -24,6 +25,7 @@ type
     lbKeys: TListBox;
     procedure btnHelpClick(Sender: TObject);
     procedure btnExecuteClick(Sender: TObject);
+    procedure lbKeysDblClick(Sender: TObject);
   private
     class var FFrame: TFrame;
   public
@@ -98,7 +100,7 @@ begin
       end else
         S := S + '0';
 
-      lbKeys.AddItem(S, TObject(NCryptKeyNamePtr.pszName));
+      lbKeys.AddItem(S, TStringObject.Create(NCryptKeyNamePtr.pszName));
     end;
   until ErrRet <> ERROR_SUCCESS;
 
@@ -121,6 +123,12 @@ begin
     FFrame := Create(nil);
 
   Result := FFrame;
+end;
+
+procedure TfrmNCryptEnumKeys.lbKeysDblClick(Sender: TObject);
+begin
+ if lbKeys.ItemIndex <> -1 then
+    Clipboard.AsText := TStringObject(lbKeys.Items.Objects[lbKeys.ItemIndex]).Value;
 end;
 
 end.

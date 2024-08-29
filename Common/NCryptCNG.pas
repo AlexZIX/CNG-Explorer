@@ -9,7 +9,7 @@ interface
 uses Winapi.Windows, NTStatusConsts;
 
 type
-  BCRYPT_OAEP_PADDING_INFO = record
+  TOAEPPaddingInfo = record
     pszAlgId: LPWSTR;
     pbLabel: PByte;
     cbLabel: UInt32;
@@ -150,6 +150,7 @@ begin
      NTE_PERM: Result := 'Access denied';
      NTE_BAD_SIGNATURE: Result := 'Bad signature';
      NTE_BAD_TYPE: Result := 'Invalid type specified';
+     NTE_BUFFER_TOO_SMALL: Result := 'The buffer supplied to a function was too small';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;

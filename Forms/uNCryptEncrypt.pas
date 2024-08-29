@@ -43,6 +43,10 @@ type
     pmi64zero: TMenuItem;
     pmi32random: TMenuItem;
     pmi64random: TMenuItem;
+    lblPaddingAlgorithm: TLabel;
+    cbPaddingAlgorithm: TComboBox;
+    hePaddingData: TBCHexEditor;
+    Label1: TLabel;
     procedure btnHelpClick(Sender: TObject);
     procedure btnExecuteClick(Sender: TObject);
     procedure pmiCopyClick(Sender: TObject);
@@ -66,8 +70,10 @@ implementation
 procedure TfrmNCryptEncrypt.btnExecuteClick(Sender: TObject);
 var ErrRet: UInt32;
     dwFlags, cbResult: UInt32;
-    inData, outData: TBytes;
+    inData, outData, paddingData: TBytes;
     memStream: TMemoryStream;
+    PaddingInfo: TOAEPPaddingInfo;
+    pPaddingInfo: Pointer;
 begin
   heOutput.DataSize := 0;
 
@@ -81,11 +87,6 @@ begin
       memStream.Read(inData[0], memStream.Size);
       memStream.Clear;
 
-      if Length(inData) < 32 then
-        SetLength(outData, 32)
-      else
-        SetLength(outData, Length(inData) * 2);
-
       dwFlags := 0;
       if cbNoPadding.Checked then
         dwFlags := dwFlags or NCRYPT_NO_PADDING_FLAG;
@@ -96,12 +97,48 @@ begin
       if cbSilentFlag.Checked then
         dwFlags := dwFlags or NCRYPT_SILENT_FLAG;
 
+      // Padding info
+      pPaddingInfo := nil;
+      if cbPadOAEP.Checked then
+      begin
+        PaddingInfo.pszAlgId := PWideChar(cbPaddingAlgorithm.Text);
+
+        hePaddingData.SaveToStream(memStream);
+        SetLength(paddingData, memStream.Size);
+        memStream.Position := 0;
+        memStream.Read(paddingData[0], memStream.Size);
+        memStream.Clear;
+        PaddingInfo.pbLabel := @paddingData[0];
+        PaddingInfo.cbLabel := Length(paddingData);
+
+        pPaddingInfo := @PaddingInfo;
+      end;
+
       if rgOperation.ItemIndex = 0 then
+      begin
+        // Get size of buffer for outData
         ErrRet := NCryptEncrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
-                    nil, @outData[0], Length(outData), @cbResult, dwFlags)
-      else
+                    pPaddingInfo, nil, 0, @cbResult, dwFlags);
+        if ErrRet = ERROR_SUCCESS then
+        begin
+          SetLength(outData, cbResult);
+
+          ErrRet := NCryptEncrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
+                      pPaddingInfo, @outData[0], Length(outData), @cbResult, dwFlags);
+        end;
+      end else
+      begin
+        // Get size of buffer for outData
         ErrRet := NCryptDecrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
-                    nil, @outData[0], Length(outData), @cbResult, dwFlags);
+                    pPaddingInfo, nil, 0, @cbResult, dwFlags);
+        if ErrRet = ERROR_SUCCESS then
+        begin
+          SetLength(outData, cbResult);
+
+          ErrRet := NCryptDecrypt(TNCryptCNG.hKey, @inData[0], Length(inData),
+                      pPaddingInfo, @outData[0], Length(outData), @cbResult, dwFlags);
+        end;
+      end;
 
       if ErrRet = ERROR_SUCCESS then
       begin

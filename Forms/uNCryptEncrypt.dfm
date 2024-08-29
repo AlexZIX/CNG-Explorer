@@ -2,11 +2,11 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   Left = 0
   Top = 0
   Width = 977
-  Height = 592
+  Height = 761
   TabOrder = 0
   DesignSize = (
     977
-    592)
+    761)
   object lblFunctionName: TLabel
     Left = 16
     Top = 3
@@ -29,7 +29,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object lblFlags: TLabel
     Left = 92
-    Top = 421
+    Top = 604
     Width = 27
     Height = 15
     Caption = 'Flags'
@@ -54,6 +54,20 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     Width = 53
     Height = 15
     Caption = 'Operation'
+  end
+  object lblPaddingAlgorithm: TLabel
+    Left = 17
+    Top = 418
+    Width = 99
+    Height = 15
+    Caption = 'Padding algorithm'
+  end
+  object Label1: TLabel
+    Left = 48
+    Top = 453
+    Width = 70
+    Height = 15
+    Caption = 'Padding data'
   end
   object pnlTopSeparator: TPanel
     Left = 0
@@ -84,7 +98,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object Panel1: TPanel
     Left = 4
-    Top = 514
+    Top = 697
     Width = 977
     Height = 4
     Anchors = [akLeft, akTop, akRight]
@@ -93,7 +107,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object leResult: TLabeledEdit
     Left = 100
-    Top = 530
+    Top = 713
     Width = 121
     Height = 23
     EditLabel.Width = 32
@@ -105,7 +119,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object edtResultMessage: TEdit
     Left = 236
-    Top = 530
+    Top = 713
     Width = 723
     Height = 23
     Anchors = [akLeft, akTop, akRight]
@@ -131,7 +145,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbPadPKCS1: TCheckBox
     Left = 124
-    Top = 465
+    Top = 648
     Width = 188
     Height = 17
     Caption = 'NCRYPT_PAD_PKCS1_FLAG'
@@ -139,7 +153,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbSilentFlag: TCheckBox
     Left = 124
-    Top = 488
+    Top = 671
     Width = 188
     Height = 17
     Caption = 'NCRYPT_SILENT_FLAG'
@@ -147,7 +161,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbNoPadding: TCheckBox
     Left = 124
-    Top = 421
+    Top = 604
     Width = 188
     Height = 17
     Caption = 'NCRYPT_NO_PADDING_FLAG'
@@ -155,7 +169,7 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
   end
   object cbPadOAEP: TCheckBox
     Left = 124
-    Top = 443
+    Top = 626
     Width = 181
     Height = 17
     Caption = 'NCRYPT_PAD_OAEP_FLAG'
@@ -207,9 +221,39 @@ object frmNCryptEncrypt: TfrmNCryptEncrypt
     TabOrder = 12
     StyleElements = []
   end
+  object cbPaddingAlgorithm: TComboBox
+    Left = 124
+    Top = 415
+    Width = 213
+    Height = 23
+    ItemIndex = 0
+    TabOrder = 13
+    Text = 'SHA1'
+    Items.Strings = (
+      'SHA1'
+      'SHA256'
+      'SHA384'
+      'SHA512'
+      'MD2'
+      'MD4'
+      'MD5')
+  end
+  object hePaddingData: TBCHexEditor
+    Left = 124
+    Top = 448
+    Width = 830
+    Height = 148
+    Anchors = [akLeft, akTop, akRight]
+    ParentShowHint = False
+    PopupMenu = pmData
+    ShowHint = False
+    TabOrder = 14
+    InsertMode = True
+    ShowRuler = True
+  end
   object pmData: TPopupMenu
     Left = 408
-    Top = 440
+    Top = 623
     object pmiCopy: TMenuItem
       Caption = 'Copy'
       OnClick = pmiCopyClick
