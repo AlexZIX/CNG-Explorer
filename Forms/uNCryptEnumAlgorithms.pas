@@ -89,7 +89,7 @@ begin
   ErrRet := NCryptEnumAlgorithms(TNCryptCNG.hProvider, dwAlgOperations,
               @dwAlgCount, @NCryptAlgorithmNamePtr, dwFlags);
 
-  if ErrRet = ERROR_SUCCESS then
+  if (ErrRet = ERROR_SUCCESS) and (dwAlgCount > 0) then
   begin
     for i := 0 to dwAlgCount - 1 do
     begin

@@ -41,7 +41,8 @@ implementation
 procedure TfrmNCryptOpenStorageProvider.btnExecuteClick(Sender: TObject);
 var ErrRet: UInt32;
 begin
-  ErrRet := NCryptOpenStorageProvider(@TNCryptCNG.hProvider, 'Microsoft Software Key Storage Provider', 0);
+  ErrRet := NCryptOpenStorageProvider(@TNCryptCNG.hProvider,
+    PWideChar(cbProviderName.Text), 0);
 
   leResult.Text := '0x' + IntToHex(ErrRet);
   edtResultMessage.Text := TNCryptCNG.GetErrorDescription(ErrRet);
