@@ -154,7 +154,7 @@ begin
   if Node.SelectedIndex <> 0 then
   begin  
     case Node.SelectedIndex of
-      1: SelectedFrame := TfrmNCryptCreatePersistedKey.GetFrame;
+      1: SelectedFrame := TfrmNCryptCreatePersistedKey.GetFrame(OnChangePointers);
       2: SelectedFrame := TfrmNCryptFinalizeKey.GetFrame;
       3: SelectedFrame := TfrmNCryptEncrypt.GetFrame;
       4: SelectedFrame := TfrmNCryptOpenStorageProvider.GetFrame(OnChangePointers);

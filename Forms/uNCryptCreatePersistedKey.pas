@@ -31,9 +31,10 @@ type
     procedure btnHelpClick(Sender: TObject);
     procedure btnExecuteClick(Sender: TObject);
   private
+    class var FOnChangePointers: TNotifyEvent;
     class var FFrame: TFrame;
   public
-    class function GetFrame: TFrame;
+    class function GetFrame(OnChangePointers: TNotifyEvent): TFrame;
   end;
 
 implementation
@@ -65,6 +66,9 @@ begin
 
   leResult.Text := '0x' + IntToHex(ErrRet);
   edtResultMessage.Text := TNCryptCNG.GetErrorDescription(ErrRet);
+
+  if Assigned(FOnChangePointers) then
+    FOnChangePointers(nil);
 end;
 
 procedure TfrmNCryptCreatePersistedKey.btnHelpClick(Sender: TObject);
@@ -74,11 +78,12 @@ begin
     '', '', SW_SHOWNORMAL);
 end;
 
-class function TfrmNCryptCreatePersistedKey.GetFrame: TFrame;
+class function TfrmNCryptCreatePersistedKey.GetFrame(OnChangePointers: TNotifyEvent): TFrame;
 begin
   if not Assigned(FFrame) then
     FFrame := Create(nil);
 
+  FOnChangePointers := OnChangePointers;
   Result := FFrame;
 end;
 

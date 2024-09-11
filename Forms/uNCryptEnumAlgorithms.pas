@@ -111,12 +111,12 @@ begin
 
       lbAlgorithms.AddItem(S, TStringObject.Create(NCryptAlgorithmName.pszName));
     end;
+
+    NCryptFreeBuffer(NCryptAlgorithmNamePtr);
   end;
 
   leResult.Text := '0x' + IntToHex(ErrRet);
   edtResultMessage.Text := TNCryptCNG.GetErrorDescription(ErrRet);
-
-  NCryptFreeBuffer(NCryptAlgorithmNamePtr);
 end;
 
 procedure TfrmNCryptEnumAlgorithms.btnHelpClick(Sender: TObject);

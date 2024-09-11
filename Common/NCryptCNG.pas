@@ -153,6 +153,7 @@ begin
      NTE_BUFFER_TOO_SMALL: Result := 'The buffer supplied to a function was too small';
      NTE_DEVICE_NOT_READY: Result := 'The device that is required by this cryptographic provider is not ready for use';
      SCARD_W_CANCELLED_BY_USER: Result := 'The action was cancelled by user';
+     TPM_20_E_SIZE: Result := 'TPM 2.0: Structure is wrong size';
      //NTE_VBS_UNAVAILABLE: Result := 'VBS is unavailable.';
   end;
 end;
