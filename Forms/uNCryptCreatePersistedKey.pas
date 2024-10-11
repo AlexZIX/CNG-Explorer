@@ -50,10 +50,10 @@ begin
     dwFlags := dwFlags or NCRYPT_MACHINE_KEY_FLAG;
   if cbOverwriteKeyFlag.Checked then
     dwFlags := dwFlags or NCRYPT_OVERWRITE_KEY_FLAG;
-  {if cbRequireVbsFlag.Checked then
+  if cbRequireVbsFlag.Checked then
     dwFlags := dwFlags or NCRYPT_REQUIRE_VBS_FLAG;
   if cbPreferVbsFlag.Checked then
-    dwFlags := dwFlags or NCRYPT_PREFER_VBS_FLAG;}
+    dwFlags := dwFlags or NCRYPT_PREFER_VBS_FLAG;
 
   dwLegacyKeySpec := 0;
   if cbKeyExchange.Checked then
